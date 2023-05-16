@@ -77,3 +77,15 @@ config :phoenix, :plug_init_mode, :runtime
 
 # disable caching to ensure the rendered spec is refreshed
 config :open_api_spex, :cache_adapter, OpenApiSpex.Plug.NoneCache
+
+
+config :partisan,
+  name: System.get_env("PARTISAN_NODENAME") |> String.to_atom(),
+  peer_port: String.to_integer(
+    System.get_env("PARTISAN_PEER_PORT") || "10200"
+  ),
+  peer_service_manager: :partisan_pluggable_peer_service_manager,
+  remote_ref_format: :improper_list,
+  peer_discovery: [
+    enabled: false
+  ]

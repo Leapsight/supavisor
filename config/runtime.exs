@@ -21,18 +21,41 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
-  config :libcluster,
-    debug: false,
-    topologies: [
-      fly6pn: [
-        strategy: Cluster.Strategy.DNSPoll,
-        config: [
-          polling_interval: 5_000,
-          query: System.get_env("DNS_NODES"),
-          node_basename: System.get_env("FLY_APP_NAME") || "supavisor"
-        ]
+  # TODO remove if using Partisan
+  # config :libcluster,
+  #   debug: false,
+  #   topologies: [
+  #     fly6pn: [
+  #       strategy: Cluster.Strategy.DNSPoll,
+  #       config: [
+  #         polling_interval: 5_000,
+  #         query: System.get_env("DNS_NODES"),
+  #         node_basename: System.get_env("FLY_APP_NAME") || "supavisor"
+  #       ]
+  #     ]
+  #   ]
+
+  config :partisan,
+    name: System.get_env("PARTISAN_NODENAME") |> String.to_atom(),
+    peer_port: String.to_integer(
+      System.get_env("PARTISAN_PEER_PORT") || "10200"
+    ),
+    peer_service_manager: :partisan_pluggable_peer_service_manager,
+    remote_ref_format: :improper_list,
+    peer_discovery: [
+      enabled: true,
+      type: :partisan_peer_discovery_dns,
+      initial_delay: 2_000,
+      polling_interval: 5_000,
+      timeout: 5_000,
+      config: [
+        record_type: :fqdns,
+        name: System.get_env("DNS_NODES"),
+        nodename: System.get_env("FLY_APP_NAME") || "supavisor"
       ]
     ]
+
+
 end
 
 if config_env() != :test do
