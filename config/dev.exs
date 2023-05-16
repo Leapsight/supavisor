@@ -80,7 +80,7 @@ config :open_api_spex, :cache_adapter, OpenApiSpex.Plug.NoneCache
 
 
 config :partisan,
-  name: System.get_env("PARTISAN_NODENAME") |> String.to_atom(),
+  name: System.get_env("PARTISAN_NODENAME", "node1@127.0.0.1") |> String.to_atom(),
   peer_port: String.to_integer(
     System.get_env("PARTISAN_PEER_PORT") || "10200"
   ),
