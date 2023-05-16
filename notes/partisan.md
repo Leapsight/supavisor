@@ -48,15 +48,27 @@
 Start a cluster using the following commands in three different terminals
 
 ```bash
-PARTISAN_NODENAME=node1@127.0.0.1 PARTISAN_PEER_PORT=10001 iex -S mix
+PARTISAN_NODENAME=node1@127.0.0.1 \
+PARTISAN_PEER_PORT=10001 \
+PORT=4001 \
+PROXY_PORT=7654 \
+iex -S mix
 ```
 
 ```bash
-PARTISAN_NODENAME=node2@127.0.0.1 PARTISAN_PEER_PORT=10002 iex -S mix
+PARTISAN_NODENAME=node2@127.0.0.1 \
+PARTISAN_PEER_PORT=10002 \
+PORT=4002 \
+PROXY_PORT=7655 \
+iex -S mix
 ```
 
 ```bash
-PARTISAN_NODENAME=node3@127.0.0.1 PARTISAN_PEER_PORT=10003 iex -S mix
+PARTISAN_NODENAME=node3@127.0.0.1 \
+PARTISAN_PEER_PORT=10003 \
+PORT=4003 \
+PROXY_PORT=7656 \
+iex -S mix
 ```
 
 Get the node_spec from shell 1
