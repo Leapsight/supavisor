@@ -76,7 +76,8 @@ Get the node_spec from shell 1
 :partisan.node_spec()
 ```
 
-Copy the result and in terminal #2 make the following call by pasting the value as `arg`.
+Copy the result on terminal #1 and make the following call in in terminals #2 and #3 by pasting the value as `arg`.
+
 ```elixir
 :partisan_peer_service.join(arg)
 ```
